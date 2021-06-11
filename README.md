@@ -5,7 +5,7 @@
 
 
  ## Service Description 
- **코레안 타임을 없애기 위한 서비스입니다**. 
+ **코리안 타임을 없애기 위한 서비스입니다**. 
 
  ## Using Tech
  - Spring Boot(Spring Security, JWT, JPA)
