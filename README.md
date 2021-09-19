@@ -6,6 +6,9 @@
 
  ## Service Description 
  **코리안 타임을 없애기 위한 서비스입니다**. 
+ 
+ ## 시연영상
+ https://www.youtube.com/watch?v=-cKW_v1YBto
 
  ## Using Tech
  - Spring Boot(Spring Security, JWT, JPA)
