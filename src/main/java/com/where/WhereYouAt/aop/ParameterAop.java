@@ -14,13 +14,13 @@ import java.lang.reflect.Method;
 @Component
 public class ParameterAop {
 
-    @Pointcut("execution(* com.where.WhereYouAt..*.*(..))")
+    //@Pointcut("execution(* com.where.WhereYouAt..*.*(..))")
     private void pointCut(){}
 
-    @Before("pointCut()")
+   // @Before("pointCut()")
     public void before(JoinPoint joinPoint ){
 
-        //어떤 method를 실행 했는지
+        // 어떤 method를 실행 했는지
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         System.out.println("method: "+ method.getName());
@@ -33,7 +33,7 @@ public class ParameterAop {
         }
     }
 
-    @AfterReturning(value = "pointCut()", returning = "obj")
+   // @AfterReturning(value = "pointCut()", returning = "obj")
     public void afterReturn(JoinPoint joinPoint, Object obj){
         System.out.println("return obj");
         System.out.println(obj);

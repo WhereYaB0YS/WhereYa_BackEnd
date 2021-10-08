@@ -1,9 +1,11 @@
 package com.where.WhereYouAt.controller;
 
+import com.where.WhereYouAt.annotation.Timer;
 import com.where.WhereYouAt.controller.dto.user.LoginRequestDto;
 import com.where.WhereYouAt.controller.dto.user.LoginResponseDto;
 import com.where.WhereYouAt.domain.User;
 import com.where.WhereYouAt.domain.utils.JwtUtil;
+import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +27,11 @@ public class LogInController {
     private JwtUtil jwtUtil;
 
     // get으로 보냈을 때 error 내주기 하는 방법
+
+//    @Timer // 직접 만든 annotation
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDto dto) throws URISyntaxException {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto dto) throws URISyntaxException {
         String userId = dto.getUserId();
         String password = dto.getPassword();
 
@@ -37,8 +41,6 @@ public class LogInController {
 
         LoginResponseDto responseDto = LoginResponseDto.builder().jwt(jwt).nickname(user.getNickname()).build();
 
-        String url = "/user/login";
-        return ResponseEntity.created(new URI(url))
-                .body(responseDto);
+        return ResponseEntity.ok(responseDto);
     }
 }

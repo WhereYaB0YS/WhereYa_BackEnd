@@ -11,12 +11,16 @@ import org.springframework.http.HttpStatus;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseMessage {
 
-    private int code;
+    private String code;
     private String message;
-    private Object object;
+    private Object data;
 
     public ResponseMessage(HttpStatus httpStatus, String message){
-        this.code = httpStatus.value();
+        this.code = String.valueOf(httpStatus.value());
         this.message = message;
+    }
+
+    public ResponseMessage(Object object) {
+        this.data = object;
     }
 }
