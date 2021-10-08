@@ -24,6 +24,7 @@ public class LogInController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    // get으로 보냈을 때 error 내주기 하는 방법
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDto dto) throws URISyntaxException {
@@ -39,6 +40,5 @@ public class LogInController {
         String url = "/user/login";
         return ResponseEntity.created(new URI(url))
                 .body(responseDto);
-
     }
 }
