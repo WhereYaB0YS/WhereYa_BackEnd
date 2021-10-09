@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,7 +71,24 @@ public class UserController{
     //회원가입
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseMessage> createUser(@RequestBody @Valid UserDto userDto){
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            StringBuilder sb = new StringBuilder();
+            bindingResult.getAllErrors().forEach(objectError -> {
+                FieldError field = (FieldError) objectError;
+                String msg = objectError.getDefaultMessage();
+
+                System.out.println("field: "+field.getField());
+                System.out.println(msg);
+
+//                sb.append("field: "+field.getField());
+//                sb.append("\n");
+                sb.append("message: "+msg+" ");
+            });
+            return ResponseEntity.ok(new ResponseMessage(HttpStatus.BAD_REQUEST, sb.toString()));
+        }
+
         userService.createUser(userDto);
 
         return ResponseEntity.ok(new ResponseMessage(HttpStatus.CREATED,"ok"));

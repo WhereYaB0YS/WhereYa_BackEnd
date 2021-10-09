@@ -28,14 +28,11 @@ public class LogInController {
 
     // get으로 보냈을 때 error 내주기 하는 방법
 
-//    @Timer // 직접 만든 annotation
+    @Timer // 직접 만든 annotation
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto dto) throws URISyntaxException {
-        String userId = dto.getUserId();
-        String password = dto.getPassword();
-
-        User user = userService.authentication(userId,password);
+        User user = userService.authentication(dto);
 
         String jwt = jwtUtil.createToken(user.getId(),user.getNickname());
 

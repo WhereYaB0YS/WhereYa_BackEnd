@@ -24,10 +24,11 @@ public class UserDto {
     @NotBlank(message = "닉네임은 필수값 입니다")
     private String nickname;
 
+    //TODO: gender validation 처리
     @NotNull(message = "성별을 선택해 주세요")
     private GenderStatus gender;
 
+    //TODO: birthday validation 처리
     //@NotBlank(message = "생년월일은 필수값 입니다")
     private LocalDate birthday;
-
 }

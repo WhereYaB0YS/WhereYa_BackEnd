@@ -1,5 +1,7 @@
 package com.where.WhereYouAt.service;
 
+import com.where.WhereYouAt.annotation.Decode;
+import com.where.WhereYouAt.controller.dto.user.LoginRequestDto;
 import com.where.WhereYouAt.controller.dto.user.UserDto;
 import com.where.WhereYouAt.domain.User;
 import com.where.WhereYouAt.domain.dto.Birthday;
@@ -78,13 +80,17 @@ public class UserService {
     }
 
     //로그인 인증
-    public User authentication(String userId, String password) {
-        User user = userRepository.findByUserId(userId)
+    @Decode
+    public User authentication(LoginRequestDto dto) {
+        User user = userRepository.findByUserId(dto.getUserId())
                 .orElseThrow(NotExistedUserIdException::new);
 
-        if(!passwordEncoder.matches(password,user.getPassword())){
+        if(!passwordEncoder.matches(dto.getPassword(),user.getPassword())){
             throw new PasswordWrongException();
         }
+//        if(!user.getPassword().equals(dto.getPassword())){
+//            throw new PasswordWrongException();
+//        }
 
         return user;
     }
