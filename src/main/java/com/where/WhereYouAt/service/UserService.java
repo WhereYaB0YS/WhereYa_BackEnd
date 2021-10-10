@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -64,7 +65,7 @@ public class UserService {
                 .userId(userDto.getUserId())
                 .nickname(userDto.getNickname())
                 .gender(userDto.getGender())
-                .birthday(Birthday.of(userDto.getBirthday()))
+                .birthday(Birthday.of(LocalDate.parse(userDto.getBirthday())))
                 .build();
         user.setPassword(encodedPassword);
         user.setProfileImg("https://gogoeverybodyy.s3.ap-northeast-2.amazonaws.com/static/gogo.profile.png");

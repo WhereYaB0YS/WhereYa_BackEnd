@@ -75,12 +75,13 @@ public class UserController{
 
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
+
             bindingResult.getAllErrors().forEach(objectError -> {
                 FieldError field = (FieldError) objectError;
                 String msg = objectError.getDefaultMessage();
 
-                System.out.println("field: "+field.getField());
-                System.out.println(msg);
+//                System.out.println("field: "+field.getField());
+//                System.out.println(msg);
 
 //                sb.append("field: "+field.getField());
 //                sb.append("\n");

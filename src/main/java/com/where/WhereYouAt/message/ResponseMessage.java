@@ -13,6 +13,7 @@ public class ResponseMessage {
 
     private String code;
     private String message;
+    private String[] messages;
     private Object data;
 
     public ResponseMessage(HttpStatus httpStatus, String message){
@@ -22,5 +23,10 @@ public class ResponseMessage {
 
     public ResponseMessage(Object object) {
         this.data = object;
+    }
+
+    public ResponseMessage(String code, String[] messages) {
+        this.code = code;
+        this.messages = messages;
     }
 }
