@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @RequestMapping(value = "/user")
 @RestController
@@ -74,27 +73,6 @@ public class UserController{
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto){
-
-//        if(bindingResult.hasErrors()){
-////            StringBuilder sb = new StringBuilder();
-////
-////            bindingResult.getAllErrors().forEach(objectError -> {
-////                FieldError field = (FieldError) objectError;
-////                String msg = objectError.getDefaultMessage();
-////
-////                System.out.println("field: "+field.getField());
-////                System.out.println(msg);
-//
-////                sb.append("field: "+field.getField());
-////                sb.append("\n");
-////                sb.append("message: "+msg+" ");
-//            List<ObjectError> errorList = bindingResult.getAllErrors();
-//            ObjectError error = errorList.get(0);
-//            String message = error.getDefaultMessage();
-////            throw new
-////            return ResponseEntity.ok(new ResponseMessage(HttpStatus.BAD_REQUEST, message));
-//        };
-
         userService.createUser(userDto);
         return ResponseEntity.ok(new ResponseMessage(HttpStatus.CREATED,"ok"));
     }
