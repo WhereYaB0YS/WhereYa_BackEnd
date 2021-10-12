@@ -5,9 +5,15 @@ import com.where.WhereYouAt.exception.*;
 import com.where.WhereYouAt.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 @Slf4j
 @RestControllerAdvice
@@ -42,8 +48,6 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleInCorrectInformationException(InCorrectInformationException ex){
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
     }
-
-
 
     @ExceptionHandler(InCorrectUserException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -81,9 +85,35 @@ public class GlobalExceptionHandler {
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+        BindingResult bindingResult = ex.getBindingResult();
 
+//        bindingResult.getAllErrors().forEach(objectError -> {
+//            FieldError field = (FieldError) objectError;
+//
+//            System.out.println(field.getField());
+//            System.out.println(field.getDefaultMessage());
+//            System.out.println(field.getRejectedValue().toString());
+//
+//            message = field.getDefaultMessage();
+//
+//
+//        });
+        List<ObjectError> errorList = bindingResult.getAllErrors();
+        FieldError error = (FieldError) errorList.get(0);
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST,error);
+    }
 
-    //위의 exception handler중에서 가장 적합한 것을 handling하게 되고 만약 세개가 다 아니라면 이쪽으로 handling이 진행 된다.
+//    @ExceptionHandler(RuntimeException.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ErrorResponse handleRuntimeException(RuntimeException ex){
+////        log.error("서버오류: {}",ex.getMessage(),ex);
+//        return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 오류가 발생하였습니다");
+//    }
+
+    //위의 exception handler 중에서 가장 적합한 것을 handling 하게 되고 만약 세개가 다 아니라면 이쪽으로 handling이 진행 된다.
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleRuntimeException(RuntimeException ex){

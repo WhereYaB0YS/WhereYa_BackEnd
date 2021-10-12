@@ -14,13 +14,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 public class UserDto {
-    @NotBlank(message = "Id는 필수값 입니다.")
+    @NotBlank(message = "Id는 필수 값 입니다.")
     private String userId;
 
-    @NotBlank(message = "비밀번호는 필수값 입니다.")
+    @NotBlank(message = "비밀번호는 필수 값 입니다.")
     private String password;
 
-    @NotBlank(message = "닉네임은 필수값 입니다.")
+    @NotBlank(message = "닉네임은 필수 값 입니다.")
     private String nickname;
 
     //TODO: gender validation 처리

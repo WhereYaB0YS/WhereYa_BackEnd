@@ -13,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RequestMapping(value = "/user")
 @RestController
@@ -71,27 +73,29 @@ public class UserController{
     //회원가입
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult){
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto){
 
-        if(bindingResult.hasErrors()){
-            StringBuilder sb = new StringBuilder();
-
-            bindingResult.getAllErrors().forEach(objectError -> {
-                FieldError field = (FieldError) objectError;
-                String msg = objectError.getDefaultMessage();
-
-//                System.out.println("field: "+field.getField());
-//                System.out.println(msg);
-
-//                sb.append("field: "+field.getField());
-//                sb.append("\n");
-                sb.append("message: "+msg+" ");
-            });
-            return ResponseEntity.ok(new ResponseMessage(HttpStatus.BAD_REQUEST, sb.toString()));
-        }
+//        if(bindingResult.hasErrors()){
+////            StringBuilder sb = new StringBuilder();
+////
+////            bindingResult.getAllErrors().forEach(objectError -> {
+////                FieldError field = (FieldError) objectError;
+////                String msg = objectError.getDefaultMessage();
+////
+////                System.out.println("field: "+field.getField());
+////                System.out.println(msg);
+//
+////                sb.append("field: "+field.getField());
+////                sb.append("\n");
+////                sb.append("message: "+msg+" ");
+//            List<ObjectError> errorList = bindingResult.getAllErrors();
+//            ObjectError error = errorList.get(0);
+//            String message = error.getDefaultMessage();
+////            throw new
+////            return ResponseEntity.ok(new ResponseMessage(HttpStatus.BAD_REQUEST, message));
+//        };
 
         userService.createUser(userDto);
-
         return ResponseEntity.ok(new ResponseMessage(HttpStatus.CREATED,"ok"));
     }
 
