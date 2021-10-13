@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 
-@Auth
 @Slf4j
 @RequestMapping(value = "/user")
 @RestController
@@ -68,7 +67,6 @@ public class UserController{
 
         return ResponseEntity.ok(new ResponseMessage(HttpStatus.OK,"ok"));
     }
-
 
     //회원가입
     @PostMapping

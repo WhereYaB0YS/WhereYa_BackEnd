@@ -42,6 +42,7 @@ public class JwtAuthentificationFilter extends BasicAuthenticationFilter {
         chain.doFilter(request,response);
     }
 
+    //todo: jwt 관련 error 추가하기
     private Authentication getAuthentification(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if(token == null){

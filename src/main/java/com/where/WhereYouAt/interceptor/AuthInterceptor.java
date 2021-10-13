@@ -8,13 +8,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 @Slf4j
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI();
@@ -37,7 +38,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             if(query.equals("name=steve")){
                 return true;
             }
-            return false;
+
+            //Todo: 권한 관련 error handler에서 handling해야 함
+            throw new AuthException();
         }
 
         //true여야 controller까지 간다
