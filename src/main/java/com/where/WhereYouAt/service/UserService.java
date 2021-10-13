@@ -116,8 +116,14 @@ public class UserService {
 
     //프로필 수정
     public void modifyUser(Long userId, String nickname) {
-        User user = userRepository.findByNickname(nickname)
-                .orElseThrow(AlreadyExistedNicknameException::new);
+        //todo: user 검사
+        Optional<User> checkingUser = userRepository.findByNickname(nickname);
+        if(checkingUser.isPresent()){
+            throw new AlreadyExistedNicknameException();
+        }
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(NotExistedUserIdException::new);
 
         user.setNickname(nickname);
     }

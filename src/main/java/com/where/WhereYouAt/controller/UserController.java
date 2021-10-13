@@ -1,5 +1,6 @@
 package com.where.WhereYouAt.controller;
 
+import com.where.WhereYouAt.annotation.Auth;
 import com.where.WhereYouAt.controller.dto.user.*;
 import com.where.WhereYouAt.domain.User;
 import com.where.WhereYouAt.message.ResponseMessage;
@@ -20,16 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 
+@Auth
+@Slf4j
 @RequestMapping(value = "/user")
 @RestController
-@Slf4j
 public class UserController{
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
-
 
     //회원 정보 조회
     @GetMapping("/{id}")
