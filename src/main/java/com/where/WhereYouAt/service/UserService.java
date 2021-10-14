@@ -8,6 +8,7 @@ import com.where.WhereYouAt.domain.dto.Birthday;
 import com.where.WhereYouAt.domain.utils.Uploader;
 import com.where.WhereYouAt.exception.*;
 import com.where.WhereYouAt.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,15 +23,14 @@ import java.util.Optional;
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private Uploader uploader;
+    private final PasswordEncoder passwordEncoder;
+
+    private final Uploader uploader;
 
     //회원 조회
     public User getUser(Long id) {

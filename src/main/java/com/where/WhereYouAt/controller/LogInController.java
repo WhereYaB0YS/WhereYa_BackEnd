@@ -7,6 +7,7 @@ import com.where.WhereYouAt.domain.User;
 import com.where.WhereYouAt.domain.utils.JwtUtil;
 import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,12 @@ import java.net.URISyntaxException;
 
 @RequestMapping(value = "/user/login")
 @RestController
+@RequiredArgsConstructor
 public class LogInController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     // get으로 보냈을 때 error 내주기 하는 방법
 

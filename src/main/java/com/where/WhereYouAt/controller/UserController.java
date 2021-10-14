@@ -7,6 +7,7 @@ import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.repository.UserRepository;
 import com.where.WhereYouAt.service.UserService;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,10 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping(value = "/user")
 @RestController
+@RequiredArgsConstructor
 public class UserController{
-    @Autowired
-    private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
     //회원 정보 조회
     @GetMapping("/{id}")
