@@ -7,6 +7,10 @@ import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.repository.UserRepository;
 import com.where.WhereYouAt.service.UserService;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 
+@Api(tags = {"User 관련 Controller"})
 @Slf4j
 @RequestMapping(value = "/user")
 @RestController
@@ -31,8 +36,12 @@ public class UserController{
     private final UserService userService;
 
     //회원 정보 조회
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "유저의 고유 id",required = true, dataType = "int")
+    })
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id){
+    public User getUser(
+            @PathVariable Long id){
         return userService.getUser(id);
     }
 

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ServletComponentScan
 public class WhereYouAtApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(WhereYouAtApplication.class, args);
 	}
