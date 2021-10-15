@@ -29,7 +29,6 @@ import java.time.LocalDate;
 
 @WebMvcTest(LogInController.class)
 @AutoConfigureWebMvc
-
 public class LoginControllerTest {
 
     @MockBean
@@ -76,14 +75,12 @@ public class LoginControllerTest {
                 .id(1L)
                 .userId("wya111")
                 .password("$2a$10$WITI3wjWXu9MWfvppMOafuosC870rPP7dbgoBJg7vaYx/k7piayxS")
-                .nickname("youngwoo")
+                .nickname("haming진석")
                 .birthday(Birthday.of(LocalDate.of(1997,06,27)))
                 .gender(GenderStatus.valueOf("MALE"))
                 .build();
 
-        System.out.println(user.getId());
-        String jwt =  jwtUtil.createToken(user.getId(),user.getNickname());
-        System.out.println(jwt);
+        String jwt =  "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzQzNjkwNjIsInVzZXJJZCI6MSwibmlja25hbWUiOiJoYW1pbmfsp4TshJ0ifQ.08pcY_GDQY3FgyYjskAmZsqhQA5lfrFVtyqYJi_KOCQ";
 
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .jwt(jwt)
