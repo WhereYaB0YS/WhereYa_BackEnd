@@ -2,9 +2,11 @@ package com.where.WhereYouAt.service;
 
 import com.where.WhereYouAt.annotation.Decode;
 import com.where.WhereYouAt.controller.dto.user.LoginRequestDto;
+import com.where.WhereYouAt.controller.dto.user.LoginResponseDto;
 import com.where.WhereYouAt.controller.dto.user.UserDto;
 import com.where.WhereYouAt.domain.User;
 import com.where.WhereYouAt.domain.dto.Birthday;
+import com.where.WhereYouAt.domain.utils.JwtUtil;
 import com.where.WhereYouAt.domain.utils.Uploader;
 import com.where.WhereYouAt.exception.*;
 import com.where.WhereYouAt.repository.UserRepository;
@@ -31,6 +33,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final Uploader uploader;
+
+    private final JwtUtil jwtUtil;
 
     //회원 조회
     public User getUser(Long id) {
@@ -82,18 +86,17 @@ public class UserService {
 
     //로그인 인증
     @Decode
-    public User authentication(LoginRequestDto dto) {
+    public LoginResponseDto authentication(LoginRequestDto dto) {
         User user = userRepository.findByUserId(dto.getUserId())
                 .orElseThrow(NotExistedUserIdException::new);
 
         if(!passwordEncoder.matches(dto.getPassword(),user.getPassword())){
             throw new PasswordWrongException();
         }
-//        if(!user.getPassword().equals(dto.getPassword())){
-//            throw new PasswordWrongException();
-//        }
 
-        return user;
+        String jwt = jwtUtil.createToken(user.getId(),user.getNickname());
+
+        return LoginResponseDto.builder().jwt(jwt).nickname(user.getNickname()).build();
     }
 
     //아이디 중복 확인

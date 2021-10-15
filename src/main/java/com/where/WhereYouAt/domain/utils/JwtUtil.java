@@ -25,7 +25,6 @@ public class JwtUtil {
                 .compact();
         return token;
     }
-
     public Claims getClaims(String token){
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)

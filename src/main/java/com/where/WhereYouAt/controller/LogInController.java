@@ -32,12 +32,7 @@ public class LogInController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto dto) throws URISyntaxException {
-        User user = userService.authentication(dto);
 
-        String jwt = jwtUtil.createToken(user.getId(),user.getNickname());
-
-        LoginResponseDto responseDto = LoginResponseDto.builder().jwt(jwt).nickname(user.getNickname()).build();
-
-        return ResponseEntity.ok(responseDto);
+        return ResponseEntity.ok(userService.authentication(dto));
     }
 }
