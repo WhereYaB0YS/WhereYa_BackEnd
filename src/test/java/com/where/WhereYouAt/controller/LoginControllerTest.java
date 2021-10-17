@@ -11,6 +11,7 @@ import com.where.WhereYouAt.enumclass.GenderStatus;
 import com.where.WhereYouAt.repository.UserRepository;
 import com.where.WhereYouAt.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class LoginControllerTest {
 //    }
 
     @Test
+    @DisplayName("로그인")
     public void loginTest() throws Exception {
         String userId = "wya111";
         String password = "1234";
@@ -81,6 +83,7 @@ public class LoginControllerTest {
                 .build();
 
         String jwt =  "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzQzNjkwNjIsInVzZXJJZCI6MSwibmlja25hbWUiOiJoYW1pbmfsp4TshJ0ifQ.08pcY_GDQY3FgyYjskAmZsqhQA5lfrFVtyqYJi_KOCQ";
+        String jwtt = jwtUtil.createToken(user.getId(),user.getNickname());
 
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .jwt(jwt)
@@ -97,6 +100,8 @@ public class LoginControllerTest {
                 MockMvcResultMatchers.status().isOk()
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.nickname").value(user.getNickname())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.jwt").value(jwt)
         ).andDo(MockMvcResultHandlers.print());
     }
 }

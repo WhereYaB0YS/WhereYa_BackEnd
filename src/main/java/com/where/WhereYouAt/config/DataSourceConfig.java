@@ -1,5 +1,6 @@
 package com.where.WhereYouAt.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,12 +9,20 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
+
+    @Value("${database.username}")
+    public String username;
+
+    @Value("${database.password}")
+    public String password;
+
+    @Value("${database.url}")
+    public String url;
+
+    @Value("${database.driverClass}")
+    public String driverClass;
     @Bean
     public DataSource dataSource(){
-        String username = "whereboy"; //
-        String password = "where1234"; //
-        String url = "jdbc:mysql://wheredatabase.cplrxb3kh41a.ap-northeast-2.rds.amazonaws.com:3306/wyaDB?characterEncoding=utf8";
-        String driverClass = "com.mysql.jdbc.Driver";
 
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.username(username);
