@@ -61,5 +61,11 @@ dependencies {
 	testImplementation 'org.mockito:mockito-junit-jupiter'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.1.RELEASE'
 }
-
 ```
+### Commit Convention
+- 2021 10.31일 이후로 적용
+- [add] : 기능 추가 시
+- [update] : 기능 수정 시
+- [fix] : 버그 해결 시
+- [refactor]: 코드 리팩토링
+- 설명은 한글로!
