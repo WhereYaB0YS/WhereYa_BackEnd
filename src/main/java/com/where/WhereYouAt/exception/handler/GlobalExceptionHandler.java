@@ -106,13 +106,6 @@ public class GlobalExceptionHandler {
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,error);
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorResponse handleRuntimeException(RuntimeException ex){
-////        log.error("서버오류: {}",ex.getMessage(),ex);
-//        return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 오류가 발생하였습니다");
-//    }
-
     //위의 exception handler 중에서 가장 적합한 것을 handling 하게 되고 만약 세개가 다 아니라면 이쪽으로 handling이 진행 된다.
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

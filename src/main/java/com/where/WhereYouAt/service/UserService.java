@@ -13,6 +13,9 @@ import com.where.WhereYouAt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +29,7 @@ import java.util.Optional;
 @Transactional
 @Slf4j
 @RequiredArgsConstructor
-public class UserService {
+public class UserService{
 
     private final UserRepository userRepository;
 
@@ -35,6 +38,7 @@ public class UserService {
     private final Uploader uploader;
 
     private final JwtUtil jwtUtil;
+
 
     //회원 조회
     public User getUser(Long id) {
@@ -86,7 +90,7 @@ public class UserService {
 
     //로그인 인증
     @Decode
-    public LoginResponseDto authentication(LoginRequestDto dto) {
+    public LoginResponseDto authentication(LoginRequestDto dto){
         User user = userRepository.findByUserId(dto.getUserId())
                 .orElseThrow(NotExistedUserIdException::new);
 
@@ -132,7 +136,7 @@ public class UserService {
     }
 
     //프로필 이미지 업로드
-    public String uploadImg(Long userId, MultipartFile file) throws IOException {
+    public String uploadImg(Long userId, MultipartFile file) throws IOException{
         User user = userRepository.findById(userId)
                 .orElseThrow(NotExistedUserIdException::new);
 

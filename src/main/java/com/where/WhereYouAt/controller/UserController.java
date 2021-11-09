@@ -3,6 +3,7 @@ package com.where.WhereYouAt.controller;
 import com.where.WhereYouAt.annotation.Auth;
 import com.where.WhereYouAt.controller.dto.user.*;
 import com.where.WhereYouAt.domain.User;
+import com.where.WhereYouAt.domain.utils.JwtUtil;
 import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.repository.UserRepository;
 import com.where.WhereYouAt.service.UserService;
@@ -34,6 +35,8 @@ import java.io.IOException;
 public class UserController{
 
     private final UserService userService;
+
+    private final JwtUtil jwtUtil;
 
     //회원 정보 조회
     @ApiImplicitParams({
@@ -87,6 +90,7 @@ public class UserController{
     //프로필 수정
     @PatchMapping
     public ResponseEntity<ResponseMessage> modifyUser(Authentication authentication, @RequestBody ModUserDto userDto){
+
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
 

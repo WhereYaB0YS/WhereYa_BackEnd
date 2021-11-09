@@ -29,8 +29,6 @@ public class LogInController {
 
     private final UserService userService;
 
-    private final JwtUtil jwtUtil;
-
     // get 으로 보냈을 때 error 내주기 하는 방법
 
     @ApiResponse(code = 400, message = "아이디가 틀린 경우")

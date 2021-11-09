@@ -1,38 +1,46 @@
 package com.where.WhereYouAt;
 
+import com.where.WhereYouAt.config.CustomAuthenticationEntryPoint;
 import com.where.WhereYouAt.domain.utils.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import javax.servlet.Filter;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
+public class SecurityJavaConfig extends WebSecurityConfigurerAdapter{
 
-    @Value("${jwt.secret}")
-    private String secret;
+    private final JwtUtil jwtUtil;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        Filter filter = new JwtAuthentificationFilter(authenticationManager(),jwtUtil());
+
 
         http
                 .cors().disable()
                 .csrf().disable()
                 .formLogin().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
                 .headers().frameOptions().disable()
                 .and()
-                .addFilter(filter)
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+                .addFilterBefore(new JwtAuthentificationFilter(jwtUtil),UsernamePasswordAuthenticationFilter.class);
     }
 
 
@@ -42,5 +50,8 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtUtil jwtUtil(){return new JwtUtil(secret);}
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }
