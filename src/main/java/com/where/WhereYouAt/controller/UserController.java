@@ -90,7 +90,7 @@ public class UserController{
     //프로필 수정
     @PatchMapping
     public ResponseEntity<ResponseMessage> modifyUser(Authentication authentication, @RequestBody ModUserDto userDto){
-
+        jwtUtil.checkToken(authentication);
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
 
@@ -102,6 +102,7 @@ public class UserController{
     //프로필 이미지 업로드
     @PutMapping("/upload/img")
     public ResponseEntity<ProfileImgDto> uploadImg(Authentication authentication, @RequestParam("data") MultipartFile file) throws IOException {
+        jwtUtil.checkToken(authentication);
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
         String img = userService.uploadImg(userId,file);
@@ -111,6 +112,7 @@ public class UserController{
     //회원탈퇴
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseMessage> deleteUser(Authentication authentication){
+        jwtUtil.checkToken(authentication);
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
 

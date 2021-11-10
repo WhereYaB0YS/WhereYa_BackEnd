@@ -1,5 +1,7 @@
 package com.where.WhereYouAt.config;
 
+import com.where.WhereYouAt.exception.ExpiredTokenException;
+import com.where.WhereYouAt.exception.InvalidTokenException;
 import com.where.WhereYouAt.exception.dto.ErrorResponse;
 import com.where.WhereYouAt.exception.enumclass.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +27,15 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         if(exception==null){
             ErrorResponse.of(HttpStatus.BAD_REQUEST,ErrorCode.NOTEXSITED_TOKEN.getErrorMessage());
-            System.out.println("토큰 없다");
             return;
         }
 
         if(exception.equals(ErrorCode.EXPIRED_TOKEN.getErrorCode())){
-            ErrorResponse.of(HttpStatus.BAD_REQUEST,ErrorCode.EXPIRED_TOKEN.getErrorMessage());
-            return;
+            throw new ExpiredTokenException();
         }
 
         if(exception.equals(ErrorCode.INVALID_TOKEN.getErrorCode())){
-            ErrorResponse.of(HttpStatus.BAD_REQUEST,ErrorCode.INVALID_TOKEN.getErrorMessage());
-            return;
+            throw new InvalidTokenException();
         }
     }
 }

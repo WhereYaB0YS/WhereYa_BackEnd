@@ -22,7 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Api(tags={"Login 관련 Controller"})
-@RequestMapping(value = "/user/login")
+@RequestMapping(value = "/login")
 @RestController
 @RequiredArgsConstructor
 public class LogInController {

@@ -81,7 +81,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotExistedPromiseException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleNotNotExistedPromiseException(NotExistedPromiseException ex){
+    public ErrorResponse handleNotExistedPromiseException(NotExistedPromiseException ex){
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
     }
 
@@ -104,6 +104,24 @@ public class GlobalExceptionHandler {
         List<ObjectError> errorList = bindingResult.getAllErrors();
         FieldError error = (FieldError) errorList.get(0);
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,error);
+    }
+
+    @ExceptionHandler(NotExistedTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNotExistedTokenException(NotExistedTokenException ex){
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleInvalidTokenException(InvalidTokenException ex){
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
+    }
+
+    @ExceptionHandler(ExpiredTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleExpiredTokenException(ExpiredTokenException ex){
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
     }
 
     //위의 exception handler 중에서 가장 적합한 것을 handling 하게 되고 만약 세개가 다 아니라면 이쪽으로 handling이 진행 된다.

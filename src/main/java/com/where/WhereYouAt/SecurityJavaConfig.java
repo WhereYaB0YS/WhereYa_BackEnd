@@ -34,11 +34,14 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter{
                 .formLogin().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .anyRequest().permitAll()
+//                .and()
+//                .authorizeRequests()
+//                .anyRequest().permitAll()
                 .and()
                 .headers().frameOptions().disable()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                 .addFilterBefore(new JwtAuthentificationFilter(jwtUtil),UsernamePasswordAuthenticationFilter.class);
     }
