@@ -2,9 +2,11 @@ package com.where.WhereYouAt.controller;
 
 
 import com.where.WhereYouAt.controller.dto.appointment.*;
+import com.where.WhereYouAt.domain.utils.JwtUtil;
 import com.where.WhereYouAt.message.ResponseMessage;
 import com.where.WhereYouAt.service.AppointmentService;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +17,19 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RequestMapping(value = "/promise")
 @RestController
 public class AppointmentController {
 
-    @Autowired
-    private AppointmentService appointmentService;
+    private final AppointmentService appointmentService;
+
+    private final JwtUtil jwtUtil;
 
     //약속 추가
     @PostMapping
     public ResponseEntity<ResponseMessage> addAppointment(Authentication authentication, @RequestBody @Valid AppointmentRequestDto dto){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
@@ -37,6 +42,8 @@ public class AppointmentController {
     //날짜별 약속유무 조회
     @GetMapping("/checkDate")
     public ResponseEntity<AppointmentcheckDateDto> getcheckedAppointment(Authentication authentication){
+        jwtUtil.checkToken(authentication);
+
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
 
@@ -48,6 +55,7 @@ public class AppointmentController {
     //날짜별로 약속목록 조회
     @GetMapping("/date/{date}")
     public ResponseEntity<AppointmentListResponseDto2> getAppointmentsByDate(Authentication authentication, @PathVariable String date){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
@@ -62,6 +70,7 @@ public class AppointmentController {
     //다가올 약속 조회
     @GetMapping("/proximate")
     public ResponseEntity<AppointmentProximateDto> getApproachedAppointment(Authentication authentication){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
@@ -72,6 +81,7 @@ public class AppointmentController {
     //약속목록 조회
     @GetMapping
     public ResponseEntity<AppointmentListResponseDto> getAppointments(Authentication authentication){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
@@ -86,6 +96,8 @@ public class AppointmentController {
     //지난 약속 전체 조회
     @GetMapping("/passed")
     public ResponseEntity<AppointmentListResponseDto> getLastedAppointments(Authentication authentication){
+        jwtUtil.checkToken(authentication);
+
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
 
@@ -95,6 +107,7 @@ public class AppointmentController {
     //약속수정
     @PatchMapping("/{promiseId}")
     public ResponseEntity<ResponseMessage> editAppointment(Authentication authentication, @PathVariable Long promiseId, @RequestBody @Valid AppointmentRequestDto dto){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
@@ -107,6 +120,7 @@ public class AppointmentController {
     //약속삭제
     @DeleteMapping("/{promiseId}")
     public ResponseEntity<ResponseMessage>deleteAppointment(Authentication authentication, @PathVariable Long promiseId){
+        jwtUtil.checkToken(authentication);
 
         Claims claims = (Claims) authentication.getPrincipal();
         Long userId = claims.get("userId",Long.class);
