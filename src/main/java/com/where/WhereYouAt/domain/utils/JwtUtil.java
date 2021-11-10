@@ -54,10 +54,12 @@ public class JwtUtil{
         return token;
     }
 
-    public void checkToken(Authentication authentication){
+    public Claims checkToken(Authentication authentication){
         if(check==1)  throw new ExpiredTokenException();
         if(check==2) throw new InvalidTokenException();
         if(authentication==null) throw new NotExistedTokenException();
+
+        return (Claims) authentication.getPrincipal();
     }
 
     // 토큰에서 인증 정보 조회
