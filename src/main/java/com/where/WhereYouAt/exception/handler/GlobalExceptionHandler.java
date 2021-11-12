@@ -5,6 +5,7 @@ import com.where.WhereYouAt.exception.*;
 import com.where.WhereYouAt.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -84,6 +85,14 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleNotExistedPromiseException(NotExistedPromiseException ex){
         return ErrorResponse.of(HttpStatus.BAD_REQUEST,ex.getMessage());
     }
+
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException ex){
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST,"RequestBody 값을 입력해주세요");
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

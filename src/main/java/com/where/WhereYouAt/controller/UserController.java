@@ -71,14 +71,14 @@ public class UserController{
     //회원가입
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity<?> createUser(@RequestBody @Valid UserDto userDto){
         userService.createUser(userDto);
         return ResponseEntity.ok(new ResponseMessage(HttpStatus.CREATED,"ok"));
     }
 
     //프로필 수정
     @PatchMapping
-    public ResponseEntity<ResponseMessage> modifyUser(Authentication authentication, @RequestBody ModUserDto userDto){
+    public ResponseEntity<ResponseMessage> modifyUser(Authentication authentication, @RequestBody @Valid ModUserDto userDto){
         Claims claims = jwtUtil.checkToken(authentication);
         Long userId = claims.get("userId",Long.class);
 
