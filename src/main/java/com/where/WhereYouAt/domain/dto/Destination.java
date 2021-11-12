@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 @Data
@@ -14,12 +17,9 @@ public class Destination {
 
     private String placeName;
 
-
     private String addressName;
 
-
     private String x;
-
 
     private String y;
 

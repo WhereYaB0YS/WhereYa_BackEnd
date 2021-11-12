@@ -21,7 +21,6 @@ public class FriendController {
 
     private final JwtUtil jwtUtil;
 
-
     //친구추가
     @PostMapping("/{friendNickname}")
     public ResponseEntity<ResponseMessage> addFriend(Authentication authentication, @PathVariable String friendNickname){

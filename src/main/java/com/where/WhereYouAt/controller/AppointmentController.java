@@ -35,12 +35,12 @@ public class AppointmentController {
 
     //날짜별 약속유무 조회
     @GetMapping("/checkDate")
-    public ResponseEntity<AppointmentcheckDateDto> getcheckedAppointment(Authentication authentication){
+    public ResponseEntity<AppointmentcheckDateDto> getCheckedAppointment(Authentication authentication){
         Claims claims = jwtUtil.checkToken(authentication);
         Long userId = claims.get("userId",Long.class);
 
         return ResponseEntity.ok(AppointmentcheckDateDto.builder()
-                .datesWithEvent(appointmentService.getcheckedAppointemnt(userId))
+                .datesWithEvent(appointmentService.getCheckedAppointment(userId))
                 .build());
     }
 

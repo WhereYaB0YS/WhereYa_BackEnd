@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,14 +17,18 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DestinationDto {
 
+    @NotBlank(message = "약속 장소는 필수 값 입니다")
     @JsonProperty("place_name")
     private String placeName;
 
+    @NotBlank(message = "약속 장소는 필수 값 입니다")
     @JsonProperty("address_name")
     private String addressName;
 
+    @NotBlank(message = "좌표는 필수 값 입니다")
     private String x;
 
+    @NotBlank(message = "좌표는 필수 값 입니다")
     private String y;
 
     public DestinationDto (Destination destination){

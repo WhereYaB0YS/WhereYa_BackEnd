@@ -52,9 +52,8 @@ public class AppointmentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(NotExistedUserIdException::new);
 
-        if(dto.getDate().atTime(dto.getTime()).isBefore(current)){
-            throw new NotPossibleDateException();
-        }
+        if(dto.getDate().atTime(dto.getTime()).isBefore(current)) throw new NotPossibleDateException();
+
         Appointment appointment = Appointment.builder()
                 .name(dto.getName())
                 .memo(dto.getMemo())
@@ -141,7 +140,7 @@ public class AppointmentService {
     }
 
     //날짜별 약속유무 조회
-    public List<LocalDate> getcheckedAppointemnt(Long userId) {
+    public List<LocalDate> getCheckedAppointment(Long userId) {
 
         List<AppointmentManager> appointmentRels = appointmentManagerRepository.findAllByUserId(userId);
         List<LocalDate> dateWithEvent= new ArrayList<>();
