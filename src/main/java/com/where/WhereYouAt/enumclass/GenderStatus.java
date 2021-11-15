@@ -3,6 +3,9 @@ package com.where.WhereYouAt.enumclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @AllArgsConstructor
 public enum GenderStatus {
@@ -11,5 +14,6 @@ public enum GenderStatus {
     FEMALE(1,"female");
 
     private Integer id;
+
     private String title;
 }

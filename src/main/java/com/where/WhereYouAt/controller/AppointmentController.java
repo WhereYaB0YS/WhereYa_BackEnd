@@ -40,7 +40,7 @@ public class AppointmentController {
         Long userId = claims.get("userId",Long.class);
 
         return ResponseEntity.ok(AppointmentcheckDateDto.builder()
-                .datesWithEvent(appointmentService.getCheckedAppointment(userId))
+                .datesWithEvent(appointmentService.getCheckedAppointemnt(userId))
                 .build());
     }
 

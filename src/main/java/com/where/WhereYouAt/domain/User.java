@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,8 +42,8 @@ public class User implements UserDetails{
     @NotEmpty
     private String nickname;
 
-    @Enumerated(EnumType.STRING)
-    private GenderStatus gender;
+//    @Enumerated(EnumType.STRING)
+    private String gender;
 
     @Valid
     @Embedded
