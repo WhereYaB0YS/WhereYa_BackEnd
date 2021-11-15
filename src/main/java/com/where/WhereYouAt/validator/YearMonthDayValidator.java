@@ -4,7 +4,6 @@ import com.where.WhereYouAt.annotation.YearMonthDay;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.annotation.Annotation;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

@@ -140,7 +140,7 @@ public class AppointmentService {
     }
 
     //날짜별 약속유무 조회
-    public List<LocalDate> getCheckedAppointment(Long userId) {
+    public List<LocalDate> getCheckedAppointemnt(Long userId) {
 
         List<AppointmentManager> appointmentRels = appointmentManagerRepository.findAllByUserId(userId);
         List<LocalDate> dateWithEvent= new ArrayList<>();

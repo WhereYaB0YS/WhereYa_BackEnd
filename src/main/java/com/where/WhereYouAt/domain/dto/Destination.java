@@ -14,13 +14,16 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Destination {
 
-
+    @NotBlank
     private String placeName;
 
+    @NotBlank
     private String addressName;
 
+    @NotBlank
     private String x;
 
+    @NotBlank
     private String y;
 
     public Destination(DestinationDto destination){
