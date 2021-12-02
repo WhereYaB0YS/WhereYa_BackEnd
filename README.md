@@ -25,8 +25,8 @@
  ## API WIKI 
 - [API 문서](https://github.com/Yboyu0u/WhereYouAt_API/wiki)
 
-## Service Architecture 
-![image](https://user-images.githubusercontent.com/63579113/121895281-01bfd800-cd5b-11eb-8501-6ce0a479f47a.png)
+## Server Architecture 
+![image](https://user-images.githubusercontent.com/63579113/144379232-141f5a1b-6d0f-4c9a-9106-aed3c7b38bea.png)
 
 ## Dependency
 ```
